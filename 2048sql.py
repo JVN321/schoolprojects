@@ -1,4 +1,4 @@
-
+#2048 the game in python with sql leaderboards
 import random
 
 tilesize = (7, 4)
@@ -7,7 +7,6 @@ pad = 40
 gamescene = ""
 
 color = "Ñ%@#W$?|!;:+=-,._ "[::-1]
-#color = "⠀⠁⠂⠃⠄⠅⠆⠇⠈⠉⠊⠋⠌⠍⠎⠏⠐⠑⠒⠓⠔⠕⠖⠗⠘⠙⠚⠛⠜⠝⠞⠟⠠⠡⠢⠣⠤⠥⠦⠧⠨⠩⠪⠫⠬⠭⠮⠯⠰⠱⠲⠳⠴⠵⠶⠷⠸⠹⠺⠻⠼⠽⠾⠿⡀⡁⡂⡃⡄⡅⡆⡇⡈⡉⡊⡋⡌⡍⡎⡏⡐⡑⡒⡓⡔⡕⡖⡗⡘⡙⡚⡛⡜⡝⡞⡟⡠⡡⡢⡣⡤⡥⡦⡧⡨⡩⡪⡫⡬⡭⡮⡯⡰⡱⡲⡳⡴⡵⡶⡷⡸⡹⡺⡻⡼⡽⡾⡿⢀⢁⢂⢃⢄⢅⢆⢇⢈⢉⢊⢋⢌⢍⢎⢏⢐⢑⢒⢓⢔⢕⢖⢗⢘⢙⢚⢛⢜⢝⢞⢟⢠⢡⢢⢣⢤⢥⢦⢧⢨⢩⢪⢫⢬⢭⢮⢯⢰⢱⢲⢳⢴⢵⢶⢷⢸⢹⢺⢻⢼⢽⢾⢿⣀⣁⣂⣃⣄⣅⣆⣇⣈⣉⣊⣋⣌⣍⣎⣏⣐⣑⣒⣓⣔⣕⣖⣗⣘⣙⣚⣛⣜⣝⣞⣟⣠⣡⣢⣣⣤⣥⣦⣧⣨⣩⣪⣫⣬⣭⣮⣯⣰⣱⣲⣳⣴⣵⣶⣷⣸⣹⣺⣻⣼⣽⣾⣿"
 startchoice = [[2, 2], [2, 2], [4], [4, 2]]
 choicies = [[2],[2],[2],[2],[4]]
 score = 0
@@ -101,7 +100,6 @@ def displaygrid(pad,grid,gridsize=gridsize,tilesize=tilesize):
     gridtiles = []
 
 def compresgrid(move):
-    
     def compupdown(jtupe):
         for i in range(0, len(grid[0]),1):
             for j in range(jtupe[0],jtupe[1],jtupe[2]):
@@ -326,7 +324,7 @@ elif choice == 1:
             if len(cur.fetchall()) == 1: 
                 user = username 
                 break
-            else: print("Wrong password of username \n")
+            else: print("Wrong password or username \n")
         except Exception as e:
             print("Error Details: " + str(e))
             pass
@@ -346,7 +344,7 @@ while True:
             cur.execute(f"select * from data where username = '{user}'")
             data = list(cur.fetchall())
             highscore = data[0][-1]
-            if score > highscore:
+            if score > highscore: # type: ignore
                 print("New Highscore")
                 cur.execute(f"update data set highscore = {score} where username = '{user}'")
                 con.commit()
@@ -362,8 +360,8 @@ while True:
             maxlen = 0
             highscores.insert(0,("Names","High Scores"))
             for i in highscores:
-                if len(i[0]) > maxlen:
-                    maxlen = len(i[0])
+                if len(i[0]) > maxlen: # type: ignore
+                    maxlen = len(i[0]) # type: ignore
                 if len(str(i[1])) > maxlen:
                     maxlen = len(str(i[1]))
             
